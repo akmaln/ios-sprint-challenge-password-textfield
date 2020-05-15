@@ -8,6 +8,7 @@
 
 import UIKit
 
+@IBDesignable
 class PasswordField: UIControl {
     
     // Public API - these properties are used to fetch the final password and strength values
@@ -40,14 +41,62 @@ class PasswordField: UIControl {
     
     func setup() {
         // Lay out your subviews here
+        backgroundColor = bgColor
         
         addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Enter Password"
+        titleLabel.textColor = labelTextColor
+        
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8)
+        ])
+        
+        addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Password"
+        textField.borderStyle = .roundedRect
+        textField.isSecureTextEntry = true
+        textField.layer.borderColor = textFieldBorderColor.cgColor
+        textField.layer.cornerRadius = 0
+        textField.layer.borderWidth = 1.5
+        textField.clipsToBounds = true
+        
+        NSLayoutConstraint.activate([
+            textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+        ])
+        
+        addSubview(weakView)
+        addSubview(mediumView)
+        addSubview(strongView)
+        weakView.translatesAutoresizingMaskIntoConstraints = false
+        mediumView.translatesAutoresizingMaskIntoConstraints = false
+        strongView.translatesAutoresizingMaskIntoConstraints = false
+        weakView.backgroundColor = weakColor
+        mediumView.backgroundColor = mediumColor
+        strongView.backgroundColor = strongColor
+        
+        NSLayoutConstraint.activate([
+            weakView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            weakView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            mediumView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            mediumView.widthAnchor.constraint(equalToConstant: colorViewSize.width),
+            strongView.heightAnchor.constraint(equalToConstant: colorViewSize.height),
+            strongView.widthAnchor.constraint(equalToConstant: colorViewSize.width)
+        ])
+        
+        
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+        textField.delegate = self
     }
 }
 
