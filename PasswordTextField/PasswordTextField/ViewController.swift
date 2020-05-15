@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     // For use in the stretch goal
     //
     // Uncomment this entire method, then run the app.
